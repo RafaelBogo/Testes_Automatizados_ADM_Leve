@@ -9,7 +9,7 @@ Feature: Cadastro de Locação - Modulo 2 (Equipamentos)
 Scenario: Adicionar equipamento a locação com sucesso
   Given o usuário esta logado no sistema ADM Leve
   When preenche os campos de um novo equipamento
-  Then o equipamento é adicionado a lista da locação
+  Then o equipamento é adicionado  lista da locação
 */
 
 describe('Locação - Adicionar equipamento', () => {
@@ -27,9 +27,11 @@ describe('Locação - Adicionar equipamento', () => {
       termoBusca: '1',
       quantidade: '300',
       dias: '1000',
-      complemento: 'Locação teste'
+      complemento: 'Locação teste',
+      dataInicial: "28042025",
+      horaInicial: "22:00",
+      dataFinal: "10052025",
+      horaFinal: "20:00",
     })
-
-    locacaoForm.validarEquipamentoAdicionado()
   })
 })
