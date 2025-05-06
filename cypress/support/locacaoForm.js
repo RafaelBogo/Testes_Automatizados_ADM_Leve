@@ -21,6 +21,15 @@ export class LocacaoForm {
       horaInicial: () => cy.get("input#horaInicial"),
       dataFinal: () => cy.get("input#dataDevolucao"),
       horaFinal: () => cy.get("input#horaDevolucao1"),
+      
+      tipoCarteira: () => cy.get('select#tipoCarteira'),
+      tipoCarteiraSelect: () => cy.get('#select2-tipoCarteira-container'),
+      contaSelect: () => cy.get('#select2-conta-container'),
+      condicaoPagamentoSelect: () => cy.get('#select2-condicaoPagamento-container'),
+      select2Option: (label) => cy.get('.select2-results__option').contains(label),
+      vencimentoParcela: () => cy.get('input[name="parcelas[0].vencimento"]'),
+      valorParcela: () => cy.get('input[name="parcelas[0].valor"]'),
+
     }
   
     preencherDescricao(texto) {
@@ -64,6 +73,20 @@ export class LocacaoForm {
       this.elements.botaoAdicionarEquipamento().click();
 
       cy.get('.jq-toast-single').should('be.visible').and('contain.text', 'Equipamento adicionado.')
+    }
+
+    preencherPagamento({ tipoCarteira, conta, condicao, vencimento, valor }) {
+      this.elements.tipoCarteiraSelect().click();
+      this.elements.select2Option(tipoCarteira).click();
+    
+      this.elements.contaSelect().click();
+      this.elements.select2Option(conta).click();
+    
+      this.elements.condicaoPagamentoSelect().click();
+      this.elements.select2Option(condicao).click();
+    
+      this.elements.vencimentoParcela().clear().type(vencimento);
+      this.elements.valorParcela().clear().type(valor);
     }
 
 }
