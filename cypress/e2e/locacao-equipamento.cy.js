@@ -28,7 +28,7 @@ describe('Locação - Adicionar equipamento', () => {
       quantidade: '300',
       dias: '1000',
       complemento: 'Locação teste',
-      dataInicial: "28042025",
+      dataInicial: "28-04-2025",
       horaInicial: "22:00",
       dataFinal: "10052025",
       horaFinal: "20:00",

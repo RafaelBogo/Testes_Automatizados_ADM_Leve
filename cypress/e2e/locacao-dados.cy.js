@@ -31,7 +31,7 @@ describe('Locação - Preenchimento dos dados principais', () => {
         locacaoForm.preencherDias('30');
         locacaoForm.preencherObservacoes('Teste automatizado usando Cypress.');
         locacaoForm.selecionarCliente('Rafael Bogo');
-        //Valida se campo cliente foi preenchido corrtamente.
+        //Valida se campo cliente foi preenchido corrtamente
         cy.get('#nomeCliente').should('contain.value', 'Bogo');
     });
 
