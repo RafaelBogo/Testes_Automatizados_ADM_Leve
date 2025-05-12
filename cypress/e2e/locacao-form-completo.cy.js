@@ -13,13 +13,9 @@ Scenario: Preenchimento completo do formulário de locação de equipamento
   Then a locação é salva com sucesso
 */
 
-describe('Locação - Cadastro completo de locação', () => {
-
+describe('Locação - Formulário Completo', () => {
   beforeEach(() => {
-    cy.visit('/');
-    cy.get('input[name="username"]').type('rafaelbogo52@gmail.com');
-    cy.get('input[name="password"]').type('51@2C@97a');
-    cy.get('button[type="submit"]').click();
+    cy.loginEIrParaNovaLocacao();
   });
 
   it('Deve preencher todos os campos e salvar a locação com sucesso', () => {
@@ -28,7 +24,7 @@ describe('Locação - Cadastro completo de locação', () => {
 
     // Dados principais
     locacaoForm.preencherDescricao('Locação Automatizada - Completa');
-    locacaoForm.preencherData('20-04-2025');
+    locacaoForm.preencherData('20042025');
     locacaoForm.preencherDias('30');
     locacaoForm.preencherObservacoes('Teste completo de locação automatizada.');
     locacaoForm.selecionarCliente('Rafael Bogo');
@@ -37,12 +33,12 @@ describe('Locação - Cadastro completo de locação', () => {
     // Equipamentos
     locacaoForm.adicionarEquipamento({
       termoBusca: '1',
-      quantidade: '300',
-      dias: '1000',
+      quantidade: '3,00',
+      dias: '10,00',
       complemento: 'Locação teste',
-      dataInicial: '28042025',
+      dataInicial: '28/04/2025',
       horaInicial: '22:00',
-      dataFinal: '10052025',
+      dataFinal: '10/05/2025',
       horaFinal: '20:00',
     });
 
@@ -52,12 +48,33 @@ describe('Locação - Cadastro completo de locação', () => {
       conta: 'Geral',
       condicao: '2 - 30 DIAS',
       vencimento: '04/06/2025',
-      valor: '1250,00',
+      valor: '1.250,00',
     });
 
-    // Finaliza a locação
-    cy.wait(1000)
-    cy.get('#btnSalvaLocacao').click();
+    // Validações
+    locacaoForm.validarCamposObrigatorios({
+        descricao: 'Locação Automatizada - Completa',
+        data: '20/04/2025',
+        dias: '30',
+        cliente: 'Bogo',
+      });
+
+    locacaoForm.validarCamposPagamento({
+      tipoCarteira: 'Boleto',
+      conta: 'Geral',
+      condicao: '2 - 30 DIAS',
+      vencimento: '04/06/2025',
+      valor: '1.250,00',
+    });
+
+    // Finaliza devolve e exclui a locação
+    locacaoForm.finalizarLocacao();
+    locacaoForm.acessarListaLocacoes();
+    locacaoForm.abrirTelaDevolucao();
+    locacaoForm.validarClienteDevolucao('Bogo');
+    locacaoForm.preencherObservacaoDevolucao('Equipamento devolvido em perfeitas condições.', '1.250,00');
+    locacaoForm.confirmarDevolucao();
+    locacaoForm.excluirLocacao();
+    });
 
   });
-});

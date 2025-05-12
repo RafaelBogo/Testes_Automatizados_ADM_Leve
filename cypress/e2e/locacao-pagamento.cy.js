@@ -13,13 +13,9 @@ Scenario: Preenchimento correto dos dados de pagamento
   Then os dados são salvos e a locação é finalizada com sucesso
 */
 
-describe('Locação - Preenchimento de Pagamento', () => {
-
+describe('Locação - Adicionar Forma de Pagamento', () => {
   beforeEach(() => {
-    cy.visit('/');
-    cy.get('input[name="username"]').type('rafaelbogo52@gmail.com');
-    cy.get('input[name="password"]').type('51@2C@97a');
-    cy.get('button[type="submit"]').click();
+    cy.loginEIrParaNovaLocacao();
   });
 
   it('Deve preencher corretamente os dados de pagamento da locação', () => {

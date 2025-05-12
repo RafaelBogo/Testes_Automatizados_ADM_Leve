@@ -13,13 +13,9 @@ Scenario: Preenchimento correto dos dados da locação
   Then os dados devem ser aceitos para prosseguir com a locação
 */
 
-describe('Locação - Preenchimento dos dados principais', () => {
-
+describe('Locação - Dados Locação Equipamentos', () => {
   beforeEach(() => {
-    cy.visit('/');
-    cy.get('input[name="username"]').type('rafaelbogo52@gmail.com');
-    cy.get('input[name="password"]').type('51@2C@97a');
-    cy.get('button[type="submit"]').click();
+    cy.loginEIrParaNovaLocacao();
   });
 
   it('Deve preencher corretamente os dados da locação', () => {
